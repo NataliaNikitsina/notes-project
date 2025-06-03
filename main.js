@@ -56,9 +56,9 @@ const view = {
             notesHTML = '<li class="empty-field">У вас нет еще ни одной заметки <br> Заполните поля выше и создайте свою первую заметку!</li>'
             const loveCheckbox = document.querySelector('.love-filter');
             loveCheckbox.style.display = 'none';
-        }else {
+        } else {
             notes.forEach((note) => {
-                notesHTML += `<li class="note"><div class="title ${note.backgroundColor}"><p>${note.title}</p><div id="${note.id}"><span class="${note.isLove ? 'isLove' : 'not-isLove'}"></span><span class="deleted"></span></div></div><p class="note-text">${note.description}</p></li>`;
+                notesHTML += `<li class="note"><div class="title ${note.backgroundColor}"><p>${note.title}</p><div id="${note.id}"><input type="image" src=${note.isLove ? "./assets/images/heart-active.svg" : "./assets/images/heart-inactive.svg"} alt="Heart" width="16" height="16" class="heart"><input type="image" src="./assets/images/trash.svg" alt="Wastebasket" width="16" height="16" class="deleted"></div></div><p class="note-text">${note.description}</p></li>`;
             })
             loveCheckbox.style.display = 'block';
         }
@@ -112,7 +112,7 @@ const view = {
                 controller.deleteNote(deleteId)
             }
 
-            if (event.target.classList.contains('isLove') || event.target.classList.contains('not-isLove')) {
+            if (event.target.classList.contains('heart')) {
                 const changedId = +event.target.parentElement.id
                 controller.changeStatus(changedId)
             }
