@@ -170,6 +170,7 @@ body {
 .notes-field > .container {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .love-filter {
@@ -251,7 +252,11 @@ body {
 
 .message {
     align-self: flex-end;
-    display: none;
+    position: absolute;
+    top: 288px;
+    transition: opacity 1s, visibility 1s;
+    opacity: 0;
+    visibility: hidden;
     font-weight: 500;
     color: #fff;
     border-radius: 10px;
@@ -259,13 +264,17 @@ body {
 }
 
 .warning {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s, visibility 1s;
     box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
     background: #f23d5b url("./assets/images/warning.svg") no-repeat 24px 12px;
 }
 
 .good-message {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s, visibility 1s;
     box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
     background:#47b27d url("./assets/images/warning.svg") no-repeat 24px 12px;
 }
