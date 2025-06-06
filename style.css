@@ -314,6 +314,9 @@ body {
         max-width: 255px;
         width: 100%;
     }
+    .message {
+        top: 100px;
+    }
 }
 
 
