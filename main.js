@@ -11,17 +11,9 @@ const model = {
         if (this.isShowOnlyFavorite) {
             const notesToRender = this.notes.filter(note => note.isLove);
             view.renderNotes(notesToRender);
-            if(notesToRender.length === 0) {
-                view.getMessage('У вас нет избранных заметок', 'good-message');
-                setTimeout(view.hideMessage, 3000,'good-message')
-                this.isShowOnlyFavorite = false;
-                view.canselLoveCheckbox();
-                view.renderNotes(this.notes);
-            }
         } else {
             view.renderNotes(this.notes);
         }
-
     },
 
     countNotes() {
@@ -66,17 +58,14 @@ const view = {
         const notesList = document.querySelector('.notes-list');
         let notesHTML = '';
 
-        const loveCheckbox = document.querySelector('.love-filter');
-
-        if (notes.length === 0) {
+        if (notes.length === 0 && !model.isShowOnlyFavorite) {
             notesHTML = '<li class="empty-field">У вас нет еще ни одной заметки <br> Заполните поля выше и создайте свою первую заметку!</li>'
-            const loveCheckbox = document.querySelector('.love-filter');
-            loveCheckbox.style.display = 'none';
+        } else if (notes.length === 0 && model.isShowOnlyFavorite) {
+            notesHTML = '<li class="empty-field">У вас нет избранных заметок</li>'
         } else {
             notes.forEach((note) => {
                 notesHTML += `<li class="note"><div class="title ${note.backgroundColor}"><p>${note.title}</p><div id="${note.id}"><input type="image" src=${note.isLove ? "./assets/images/heart-active.svg" : "./assets/images/heart-inactive.svg"} alt="Heart" width="16" height="16" class="heart"><input type="image" src="./assets/images/trash.svg" alt="Wastebasket" width="16" height="16" class="deleted"></div></div><p class="note-text">${note.description}</p></li>`;
             })
-            loveCheckbox.style.display = 'block';
         }
 
         notesList.innerHTML = notesHTML;
@@ -135,11 +124,6 @@ const view = {
             }
         })
 
-    },
-
-    canselLoveCheckbox(){
-        const loveCheckbox = document.querySelector('.love-input');
-        loveCheckbox.checked = false;
     },
 
     getMessage(text, textClass) {
