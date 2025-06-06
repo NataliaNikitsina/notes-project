@@ -98,6 +98,7 @@ body {
     padding: 6px 12px;
     min-height: 84px;
     font-family: inherit;
+    resize: none;
 }
 
 .radio-button-field {
@@ -223,7 +224,7 @@ body {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     gap: 24px;
 }
 
@@ -232,6 +233,9 @@ body {
     flex-direction: column;
     max-width: 368px;
     width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(11, 12, 13, 0.08), 0 8px 16px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+    flex-shrink: 2;
 }
 
 .title {
@@ -251,20 +255,24 @@ body {
     padding: 12px;
 }
 
-.message {
+.message, .warning, .good-message {
     align-self: flex-end;
     position: absolute;
     top: 288px;
-    transition: opacity 1s, visibility 1s;
-    opacity: 0;
-    visibility: hidden;
     font-weight: 500;
     color: #fff;
     border-radius: 10px;
     padding: 12px 58px;
 }
 
+.message {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .warning {
+    transform: translateY(-60px);
+    transition: opacity 1s, visibility 1s, transform 0.5s;
     opacity: 1;
     visibility: visible;
     box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
@@ -272,6 +280,8 @@ body {
 }
 
 .good-message {
+    transform: translateY(-100px);
+    transition: opacity 1s, visibility 1s, transform 1s;
     opacity: 1;
     visibility: visible;
     box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
@@ -310,13 +320,20 @@ body {
         padding-top: 90px;
     }
 
-    .note {
-        max-width: 255px;
-        width: 100%;
-    }
+    /*.note {*/
+    /*    max-width: 255px;*/
+    /*    width: 100%;*/
+    /*}*/
+
     .message {
         font-size: 12px;
         top: 80px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .notes-list {
+        justify-content: space-evenly;
     }
 }
 

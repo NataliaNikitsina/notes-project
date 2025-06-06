@@ -10,9 +10,10 @@ const model = {
     updateNotesView() {
         if (this.isShowOnlyFavorite) {
             const notesToRender = this.notes.filter(note => note.isLove);
-            if(notesToRender.length > 0) {
-                view.renderNotes(notesToRender);
-            } else {
+            view.renderNotes(notesToRender);
+            if(notesToRender.length === 0) {
+                view.getMessage('У вас нет избранных заметок', 'good-message');
+                setTimeout(view.hideMessage, 3000,'good-message')
                 this.isShowOnlyFavorite = false;
                 view.canselLoveCheckbox();
                 view.renderNotes(this.notes);
@@ -37,10 +38,8 @@ const model = {
         }
         this.notes.unshift(newNote);
         this.updateNotesView();
-
         view.getMessage('Заметка добавлена', 'good-message');
-
-        setTimeout(view.hideMessage, 3000)
+        setTimeout(view.hideMessage, 3000,'good-message')
     },
 
     changeStatus(changedId) {
@@ -57,7 +56,7 @@ const model = {
         this.notes = this.notes.filter(note => note.id !== deleteId);
         view.getMessage('Заметка удалена', 'good-message');
         this.updateNotesView();
-        setTimeout(view.hideMessage, 3000)
+        setTimeout(view.hideMessage, 3000, 'good-message')
     },
 }
 
@@ -144,31 +143,32 @@ const view = {
     },
 
     getMessage(text, textClass) {
-        const message = document.querySelector('.message');
+        const message = document.getElementById('message');
         message.textContent = text;
+        message.classList.remove('message')
         message.classList.add(textClass)
     },
 
-    hideMessage() {
-        const message = document.querySelector('.message');
+    hideMessage(textClass) {
+        const message = document.getElementById('message');
         message.textContent = '';
-        message.classList.remove('good-message')
-        message.classList.remove('warning')
+        message.classList.add('message');
+        message.classList.remove(textClass)
     },
 
     writeEmptyInput() {
         this.getMessage('Заполните все поля', 'warning');
-        setTimeout(this.hideMessage, 3000)
+        setTimeout(this.hideMessage, 3000, 'warning')
     },
 
     reduceLengthTitle() {
         this.getMessage('Максимальная длина заголовка - 50 символов', 'warning');
-        setTimeout(this.hideMessage, 3000)
+        setTimeout(this.hideMessage, 3000, 'warning')
     },
 
     reduceLengthDescription() {
         this.getMessage('Максимальная длина заметки - 200 символов', 'warning');
-        setTimeout(this.hideMessage, 3000)
+        setTimeout(this.hideMessage, 3000, 'warning')
     },
 }
 
