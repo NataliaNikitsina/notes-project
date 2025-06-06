@@ -1,5 +1,37 @@
+const colors = {
+    GREEN: 'green',
+    BLUE: 'blue',
+    RED: 'red',
+    YELLOW: 'yellow',
+    PURPLE: 'purple',
+}
+
 const model = {
     notes: [],
+
+    isShowOnlyFavorite: false,
+
+    toggleShowOnlyFavorite() {
+        this.isShowOnlyFavorite = !this.isShowOnlyFavorite;
+    },
+
+    updateNotesView() {
+        if (this.isShowOnlyFavorite) {
+            const notesToRender = this.notes.filter(note => note.isLove);
+            if(notesToRender.length > 0) {
+                view.renderNotes(notesToRender);
+            } else {
+                this.isShowOnlyFavorite = false;
+                view.canselLoveCheckbox();
+                view.renderNotes(this.notes);
+                view.getMessage(' У вас нет избранных заметок', 'good-message');
+                setTimeout(view.hideMessage, 3000)
+            }
+        } else {
+            view.renderNotes(this.notes);
+        }
+
+    },
 
     countNotes() {
         return this.notes.length ? this.notes.length : 0;
@@ -14,7 +46,7 @@ const model = {
             description: noteDescription,
         }
         this.notes.unshift(newNote);
-        view.renderNotes(this.notes);
+        this.updateNotesView();
 
         view.getMessage('Заметка добавлена', 'good-message');
 
@@ -28,18 +60,13 @@ const model = {
             }
             return note;
         })
-        view.renderNotes(this.notes);
-    },
-
-    chooseLoveNotes() {
-        const newNotes = this.notes.filter(note => note.isLove);
-        view.renderNotes(newNotes);
+        this.updateNotesView();
     },
 
     deleteNote(deleteId) {
         this.notes = this.notes.filter(note => note.id !== deleteId);
-        view.renderNotes(this.notes);
         view.getMessage('Заметка удалена', 'good-message');
+        this.updateNotesView();
         setTimeout(view.hideMessage, 3000)
     },
 }
@@ -72,7 +99,7 @@ const view = {
     init() {
         this.renderNotes(model.notes);
 
-        let selectedColor = 'yellow';
+        let selectedColor = colors.YELLOW;
 
         const radioList = document.querySelector('.radio-list');
         radioList.addEventListener('change', (event) => {
@@ -86,9 +113,11 @@ const view = {
             const noteDescription = document.querySelector('.add-description').value;
 
             if (noteTitle.trim() === '' || noteDescription.trim() === '') {
-                view.writeEmptyInput()
+                this.writeEmptyInput()
             } else if (noteTitle.length > 50) {
-                view.reduceLengthTitle()
+                this.reduceLengthTitle()
+            } else if (noteDescription.length > 200) {
+                this.reduceLengthDescription()
             } else {
                 controller.addNote(noteTitle, noteDescription, selectedColor);
                 document.querySelector('.add-title').value = '';
@@ -98,9 +127,8 @@ const view = {
 
         const loveCheckbox = document.querySelector('.love-input');
         loveCheckbox.addEventListener('change', () => {
-            if (loveCheckbox.checked) {
-                controller.chooseLoveNotes()
-            } else this.renderNotes(model.notes);
+            controller.toggleShowOnlyFavorite()
+            controller.updateNotesView();
         })
 
 
@@ -120,17 +148,22 @@ const view = {
 
     },
 
+    canselLoveCheckbox(){
+        const loveCheckbox = document.querySelector('.love-input');
+        loveCheckbox.checked = false;
+    },
+
     getMessage(text, textClass) {
         const message = document.querySelector('.message');
-        message.textContent = text;
+        message.textContent += text;
         message.classList.add(textClass)
     },
 
     hideMessage() {
         const message = document.querySelector('.message');
         message.textContent = '';
-        message.classList.remove('warning')
         message.classList.remove('good-message')
+        message.classList.remove('warning')
     },
 
     writeEmptyInput() {
@@ -140,6 +173,11 @@ const view = {
 
     reduceLengthTitle() {
         this.getMessage('Максимальная длина заголовка - 50 символов', 'warning');
+        setTimeout(this.hideMessage, 3000)
+    },
+
+    reduceLengthDescription() {
+        this.getMessage('Максимальная длина заметки - 200 символов', 'warning');
         setTimeout(this.hideMessage, 3000)
     },
 }
@@ -153,14 +191,17 @@ const controller = {
         model.addNote(noteTitle, noteDescription, selectedColor);
     },
 
-    chooseLoveNotes() {
-        model.chooseLoveNotes();
+    toggleShowOnlyFavorite() {
+        model.toggleShowOnlyFavorite()
+    },
+
+    updateNotesView() {
+        model.updateNotesView();
     },
 
     deleteNote(deleteId) {
         model.deleteNote(deleteId)
     },
-
     changeStatus(changedId) {
         model.changeStatus(changedId)
     },
