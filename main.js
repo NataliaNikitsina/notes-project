@@ -1,11 +1,3 @@
-const colors = {
-    GREEN: 'green',
-    BLUE: 'blue',
-    RED: 'red',
-    YELLOW: 'yellow',
-    PURPLE: 'purple',
-}
-
 const model = {
     notes: [],
 
@@ -99,7 +91,7 @@ const view = {
     init() {
         this.renderNotes(model.notes);
 
-        let selectedColor = colors.YELLOW;
+        let selectedColor = 'yellow';
 
         const radioList = document.querySelector('.radio-list');
         radioList.addEventListener('change', (event) => {

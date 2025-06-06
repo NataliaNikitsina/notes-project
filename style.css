@@ -223,10 +223,8 @@ body {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     gap: 24px;
-    flex-grow: 1;
-    flex-shrink: 1;
 }
 
 .note {
@@ -307,9 +305,15 @@ body {
     .radio-list {
         gap: 20px;
     }
+
+    .empty-field {
+        padding-top: 90px;
+    }
+
+    .note {
+        max-width: 255px;
+        width: 100%;
+    }
 }
 
-@media screen and (max-width: 576px) {
-
-}
 
