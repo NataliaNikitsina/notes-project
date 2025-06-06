@@ -152,8 +152,8 @@ const view = {
     hideMessage(textClass) {
         const message = document.getElementById('message');
         message.textContent = '';
+        message.classList.remove(textClass);
         message.classList.add('message');
-        message.classList.remove(textClass)
     },
 
     writeEmptyInput() {

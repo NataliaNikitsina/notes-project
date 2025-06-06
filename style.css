@@ -325,7 +325,7 @@ body {
         width: 100%;
     }
 
-    .message {
+    .message, .warning, .good-message {
         font-size: 12px;
         top: 80px;
     }
