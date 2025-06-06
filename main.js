@@ -16,8 +16,6 @@ const model = {
                 this.isShowOnlyFavorite = false;
                 view.canselLoveCheckbox();
                 view.renderNotes(this.notes);
-                view.getMessage(' У вас нет избранных заметок', 'good-message');
-                setTimeout(view.hideMessage, 3000)
             }
         } else {
             view.renderNotes(this.notes);
@@ -147,7 +145,7 @@ const view = {
 
     getMessage(text, textClass) {
         const message = document.querySelector('.message');
-        message.textContent += text;
+        message.textContent = text;
         message.classList.add(textClass)
     },
 
