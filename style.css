@@ -320,10 +320,10 @@ body {
         padding-top: 90px;
     }
 
-    /*.note {*/
-    /*    max-width: 255px;*/
-    /*    width: 100%;*/
-    /*}*/
+    .note {
+        max-width: 255px;
+        width: 100%;
+    }
 
     .message {
         font-size: 12px;
