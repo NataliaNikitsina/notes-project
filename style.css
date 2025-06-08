@@ -306,7 +306,7 @@ body {
     }
 
     .empty-field {
-        padding-top: 90px;
+        padding-top: 70px;
     }
 
     .note {
@@ -316,7 +316,7 @@ body {
 
     .message, .warning, .good-message {
         font-size: 12px;
-        top: 100px;
+        top: 90px;
     }
 
     .warning, .good-message {
