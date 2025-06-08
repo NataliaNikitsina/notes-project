@@ -249,7 +249,7 @@ body {
 .message, .warning, .good-message {
     align-self: flex-end;
     position: absolute;
-    top: 288px;
+    margin-top: 288px;
     font-weight: 500;
     color: #fff;
     border-radius: 10px;
@@ -316,7 +316,7 @@ body {
 
     .message, .warning, .good-message {
         font-size: 12px;
-        top: 90px;
+        margin-top: 70px;
     }
 
     .warning, .good-message {
