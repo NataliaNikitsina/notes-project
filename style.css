@@ -182,34 +182,25 @@ body {
     align-self: flex-end;
     margin-top: 24px;
     margin-bottom: 12px;
+    align-items: center;
 }
 
 .love-input {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-}
-
-.love-filter > span {
-    display: inline-flex;
-    align-items: center;
-    user-select: none;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.love-filter > span::before {
-    content: '';
+    appearance: none;
     display: inline-block;
-    flex-shrink: 0;
-    flex-grow: 0;
     width: 16px;
     height: 16px;
     margin-right: 8px;
     background: url(./assets/images/checkbox-inactive.svg) no-repeat;
+    cursor: pointer;
 }
 
-.love-filter > input:checked + span::before {
+.love-filter > span {
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.love-input:checked {
     background: url(./assets/images/checkbox-active.svg) no-repeat;
 }
 
@@ -283,7 +274,7 @@ body {
 }
 
 .good-message {
-    background:#47b27d url("./assets/images/warning.svg") no-repeat 24px 12px;
+    background: #47b27d url("./assets/images/warning.svg") no-repeat 24px 12px;
 }
 
 @media screen and (max-width: 1190px) {
